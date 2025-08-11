@@ -272,8 +272,8 @@
               <b>Send a Thought</b>
               <p class="muted" style="margin:6px 0 10px">Pick your return window, keep the streak alive.</p>
               <div class="stack">
-                <button class="ghost">1h</button>
-                <button class="ghost">6h</button>
+                <button class="ghost">4h</button>
+                <button class="ghost">8h</button>
                 <button class="ghost">12h</button>
               </div>
             </div>
@@ -341,14 +341,14 @@
             </ul>
             <a class="ghost" style="margin-top:16px;display:inline-flex" href="#download">Get started</a>
           </div>
-          <div class="card fade-up" style="outline:2px solid rgba(124,58,237,.5)">
+          <div class="card fade-up">
             <h3>Plus</h3>
             <p class="price">$2.99<span style="font-size:1rem;color:var(--muted)">/mo</span></p>
             <ul class="list">
               <li><span class="tick"></span><span>8h return window</span></li>
               <li><span class="tick"></span><span>Unlimited sends</span></li>
             </ul>
-            <a class="cta" style="margin-top:16px;display:inline-flex" href="#download">Try Plus</a>
+            <a class="ghost" style="margin-top:16px;display:inline-flex" href="#download">Try Plus</a>
           </div>
           <div class="card fade-up">
             <h3>Quiver</h3>
@@ -537,7 +537,7 @@
     const defaultCard = document.querySelector('#pricing .card:nth-child(2)') || pricingCards[0];
     if (defaultCard) selectPlan(defaultCard);
   }
-  
+
   </script>
 </body>
 </html>
