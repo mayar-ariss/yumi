@@ -134,12 +134,16 @@
 	.icon{inline-size:36px; block-size:36px; border-radius:10px; background: var(--grad);}
 
 	/* ============== PRICING (clickable cards) ============== */
-	#pricing .card { cursor: pointer; transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease; }
+	#pricing .card {
+	cursor: pointer;
+	transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease;
+	}
 	#pricing .card:focus-visible { outline: none; box-shadow: var(--ring); }
 
 	#pricing .card.selected {
 	border-color: rgba(124,58,237,.55);
-	box-shadow: 0 0 0 2px rgba(124,58,237,.35) inset, var(--shadow);
+	/* was 2px inset — reduce to 1px so it doesn't visually clash with the button */
+	box-shadow: 0 0 0 1px rgba(124,58,237,.25) inset, var(--shadow);
 	transform: translateY(-2px);
 	}
 
@@ -150,21 +154,30 @@
 	}
 	#pricing .card.selected .ghost,
 	#pricing .card.selected .cta {
+	/* ensure no inner stroke shows on gradient */
+	border: 0 !important;
+	outline: 0;
 	background: var(--grad);
 	color: var(--hi);
-	border-color: transparent;
 	box-shadow: 0 12px 36px rgba(124,58,237,.45);
+	background-clip: padding-box;
 	}
 
 	/* In pricing, hide ghost's thin border by default so it matches hero vibe */
 	#pricing .ghost {
-	border-color: transparent;
+	/* was border-color: transparent; → remove border entirely */
+	border: 0 !important;
 	background: rgba(255,255,255,.06);
+	background-clip: padding-box;
 	}
 	#pricing .ghost:hover {
 	background: rgba(255,255,255,.10);
 	transform: translateY(-2px);
 	}
+
+	/* Optional: consistent focus ring on pricing anchors */
+	#pricing a.ghost:focus { outline: none; }
+	#pricing a.ghost:focus-visible { box-shadow: var(--ring), 0 12px 36px rgba(124,58,237,.45); }
 
 	/* ============== PRICING (layout) ============== */
 	.pricing{display:grid; gap:22px}
