@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>YUMI — Send a Thought. Stay Close.</title>
   <meta name="description" content="YUMI is the quickest way to send a thought and keep streaks with your favorite people. Lightweight, playful, and private by design." />
   <meta property="og:title" content="YUMI — Send a Thought. Stay Close." />
@@ -11,215 +12,225 @@
   <meta property="og:image" content="assets/og-image.jpg" />
   <meta name="theme-color" content="#0f0f12" />
   <link rel="icon" href="assets/favicon.svg" />
+
   <style>
-	/* ============== CSS RESET (trimmed) ============== */
-	*,*::before,*::after{box-sizing:border-box}
-	html,body{height:100%}
-	body{margin:0;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-	img,svg,video,canvas{display:block;max-width:100%}
-	input,button,textarea,select{font:inherit}
-	a{color:inherit;text-decoration:none}
+    /* ============== CSS RESET (trimmed) ============== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    img,svg,video,canvas{display:block;max-width:100%}
+    input,button,textarea,select{font:inherit}
+    a{color:inherit;text-decoration:none}
 
-	/* ============== THEME ============== */
-	:root{
-	--bg: #0b0b0f;
-	--panel: #101017;
-	--muted: #9aa0a6;
-	--text: #e9e9ee;
-	--hi: #ffffff;
-	--brand-1: #7c3aed; /* indigo/violet */
-	--brand-2: #f43f5e; /* rose */
-	--brand-3: #06b6d4; /* cyan accent */
-	--ring: 0 0 0 8px rgb(124 58 237 / 10%);
-	--radius: 16px;
-	--shadow: 0 10px 40px rgba(0,0,0,.4);
-	--maxw: 1200px;
-	--grad: linear-gradient(135deg,var(--brand-1),var(--brand-2) 55%,var(--brand-3));
-	}
+    /* ============== THEME ============== */
+    :root{
+      --bg: #0b0b0f;
+      --panel: #101017;
+      --muted: #9aa0a6;
+      --text: #e9e9ee;
+      --hi: #ffffff;
+      --brand-1: #7c3aed; /* indigo/violet */
+      --brand-2: #f43f5e; /* rose */
+      --brand-3: #06b6d4; /* cyan accent */
+      --ring: 0 0 0 8px rgb(124 58 237 / 10%);
+      --radius: 16px;
+      --shadow: 0 10px 40px rgba(0,0,0,.4);
+      --maxw: 1200px;
+      --grad: linear-gradient(135deg,var(--brand-1),var(--brand-2) 55%,var(--brand-3));
 
-	body{
-	background:
-		radial-gradient(60rem 60rem at 80% -10%, rgba(124,58,237,.20), transparent 60%),
-		radial-gradient(50rem 50rem at -10% 30%, rgba(6,182,212,.14), transparent 60%),
-		var(--bg);
-	color: var(--text);
-	font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-	overflow-x: hidden;
-	}
+      /* iPhone safe areas */
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+    }
 
-	/* ============== LAYOUT ============== */
-	.container{width:100%;max-width:var(--maxw);margin-inline:auto;padding:0 20px}
-	.stack{display:flex;gap:24px;align-items:center}
-	.between{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    body{
+      background:
+        radial-gradient(60rem 60rem at 80% -10%, rgba(124,58,237,.20), transparent 60%),
+        radial-gradient(50rem 50rem at -10% 30%, rgba(6,182,212,.14), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x: hidden;
+    }
 
-	/* ============== NAV ============== */
-	header{position:sticky;top:0;z-index:50;background:rgba(11,11,15,.55);backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
-	.nav{padding:16px 0}
-	.brand{display:flex;align-items:center;gap:10px}
-	.logo{
-	inline-size:36px; block-size:36px; border-radius:999px;
-	background: var(--grad);
-	box-shadow: 0 6px 24px rgba(124,58,237,.45);
-	}
-	.wordmark{font-weight:700;letter-spacing:.3px}
-	nav a{opacity:.85}
-	nav a:hover{opacity:1}
-	.links{display:flex;gap:18px}
-	.cta{
-	display:inline-flex;align-items:center;gap:10px;
-	padding:10px 16px;border-radius:999px;
-	background: var(--grad); color:var(--hi); font-weight:700;
-	box-shadow: 0 10px 30px rgba(124,58,237,.35);
-	transition: transform .15s ease, box-shadow .2s ease;
-	}
-	.cta:hover{transform: translateY(-2px)}
-	.cta:focus-visible{outline:none; box-shadow: var(--ring)}
-	.menu-btn{display:none;background:transparent;border:0;color:var(--text);padding:6px;border-radius:10px}
-	.menu-btn:focus-visible{box-shadow: var(--ring)}
+    /* ============== LAYOUT ============== */
+    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding:0 20px}
+    .stack{display:flex;gap:24px;align-items:center}
+    .between{display:flex;align-items:center;justify-content:space-between;gap:16px}
 
-	/* ============== HERO ============== */
-	.hero{padding:72px 0 40px}
-	.tag{
-	display:inline-flex;gap:8px;align-items:center;
-	font-size:.9rem;color:#d7d7de;background:rgba(255,255,255,.06);
-	padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08)
-	}
-	.title{font-size: clamp(2rem, 3.2vw + 1rem, 4rem); line-height:1.05; margin:16px 0 12px}
-	.subtitle{max-width: 58ch;color: var(--muted);font-size:1.1rem}
-	.hero-cta{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
-	.ghost{
-	display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;
-	border:1px solid rgba(255,255,255,.14); background: transparent; color: var(--hi); font-weight:600;
-	transition: background .2s ease, transform .15s ease
-	}
-	.ghost:hover{background: rgba(255,255,255,.06); transform: translateY(-2px)}
+    /* ============== NAV ============== */
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(11,11,15,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px); /* iOS */
+      border-bottom:1px solid rgba(255,255,255,.06);
+      padding-top: var(--safe-top);        /* iPhone notch */
+      -webkit-transform: translateZ(0); transform: translateZ(0);
+    }
+    /* Safe padding so logo doesn’t touch the edges on iPhone */
+    header .container{
+      padding-left: calc(20px + var(--safe-left));
+      padding-right: calc(20px + var(--safe-right));
+    }
 
-	/* Make anchor-buttons feel native */
-	a.ghost, a.cta { -webkit-tap-highlight-color: transparent; }
-	/* Use soft focus ring instead of default outline */
-	.ghost:focus { outline: none; }
-	.ghost:focus-visible { outline: none; box-shadow: var(--ring); }
+    .nav{padding:16px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{display:block;height:32px;width:auto} /* if using letter images */
+    .logo{
+      inline-size:36px; block-size:36px; border-radius:999px;
+      background: var(--grad);
+      box-shadow: 0 6px 24px rgba(124,58,237,.45);
+    }
+    .wordmark{font-weight:700;letter-spacing:.3px}
+    nav a{opacity:.85}
+    nav a:hover{opacity:1}
+    .links{display:flex;gap:18px}
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 16px;border-radius:999px;
+      background: var(--grad); color:var(--hi); font-weight:700;
+      box-shadow: 0 10px 30px rgba(124,58,237,.35);
+      transition: transform .15s ease, box-shadow .2s ease;
+      border:0; background-clip: padding-box; /* unify <a>/<button> */
+    }
+    .cta:hover{transform: translateY(-2px)}
+    .cta:focus-visible{outline:none; box-shadow: var(--ring)}
+    .menu-btn{display:none;background:transparent;border:0;color:var(--text);padding:6px;border-radius:10px}
+    .menu-btn:focus-visible{box-shadow: var(--ring)}
 
-	.phone{
-	position:relative; margin-left:auto; max-width:520px; aspect-ratio: 9/19; border-radius:36px;
-	background: linear-gradient(180deg,#0e0e14,#151521); border: 1px solid rgba(255,255,255,.08);
-	box-shadow: 0 40px 120px rgba(0,0,0,.6), inset 0 0 0 6px #000;
-	overflow:hidden;
-	}
-	.screen{
-	position:absolute; inset:12px; border-radius:28px; background: radial-gradient(120% 120% at 80% 20%, rgba(124,58,237,.25), transparent 50%), #0d0d13;
-	border:1px solid rgba(255,255,255,.06);
-	display:flex; flex-direction:column; padding:16px; gap:12px;
-	}
-	.notif{display:flex;gap:10px;align-items:center;background:#11111a;border:1px solid rgba(255,255,255,.06);padding:10px;border-radius:14px}
-	.dot{inline-size:8px; block-size:8px; border-radius:999px; background: var(--brand-2)}
-	.thought{border:1px dashed rgba(255,255,255,.16);border-radius:14px;padding:14px}
-	.streak{display:flex;gap:8px;align-items:center;font-weight:700}
-	.chip{padding:4px 10px;border-radius:999px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);font-size:.85rem}
+    /* ============== HERO ============== */
+    .hero{padding:72px 0 40px}
+    .tag{
+      display:inline-flex;gap:8px;align-items:center;
+      font-size:.9rem;color:#d7d7de;background:rgba(255,255,255,.06);
+      padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08)
+    }
+    .title{font-size: clamp(2rem, 3.2vw + 1rem, 4rem); line-height:1.05; margin:16px 0 12px}
+    .subtitle{max-width: 58ch;color: var(--muted);font-size:1.1rem}
+    .hero-cta{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    .ghost{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14); background: transparent; color: var(--hi); font-weight:600;
+      transition: background .2s ease, transform .15s ease
+    }
+    .ghost:hover{background: rgba(255,255,255,.06); transform: translateY(-2px)}
+    a.ghost, a.cta { -webkit-tap-highlight-color: transparent; }
+    .ghost:focus { outline: none; }
+    .ghost:focus-visible { outline: none; box-shadow: var(--ring); }
+    button.cta, input[type="submit"].cta{ -webkit-appearance:none; appearance:none; }
+    button.cta::-moz-focus-inner, input[type="submit"].cta::-moz-focus-inner{ border:0; padding:0; }
+    .cta:focus{ outline:none; }
 
-	/* ============== SECTIONS ============== */
-	section{padding:72px 0;border-top:1px solid rgba(255,255,255,.06)}
-	.section-title{font-size:1.8rem;margin:0 0 12px}
-	.muted{color:var(--muted)}
-	.grid{display:grid;gap:22px}
-	@media (min-width: 900px){ .grid-cols-3{grid-template-columns: repeat(3,1fr)} .grid-cols-2{grid-template-columns: repeat(2,1fr)} }
+    /* Phone mock */
+    .phone{
+      position:relative; margin-left:auto; max-width:520px; aspect-ratio: 9/19; border-radius:36px;
+      background: linear-gradient(180deg,#0e0e14,#151521); border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 40px 120px rgba(0,0,0,.6), inset 0 0 0 6px #000;
+      overflow:hidden;
+    }
+    .screen{
+      position:absolute; inset:12px; border-radius:28px; background: radial-gradient(120% 120% at 80% 20%, rgba(124,58,237,.25), transparent 50%), #0d0d13;
+      border:1px solid rgba(255,255,255,.06);
+      display:flex; flex-direction:column; padding:16px; gap:12px;
+    }
+    .notif{display:flex;gap:10px;align-items:center;background:#11111a;border:1px solid rgba(255,255,255,.06);padding:10px;border-radius:14px}
+    .dot{inline-size:8px; block-size:8px; border-radius:999px; background: var(--brand-2)}
+    .thought{border:1px dashed rgba(255,255,255,.16);border-radius:14px;padding:14px}
+    .streak{display:flex;gap:8px;align-items:center;font-weight:700}
+    .chip{padding:4px 10px;border-radius:999px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.4);font-size:.85rem}
 
-	.card{
-	background: linear-gradient(180deg, #111117, #0e0e14);
-	border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:22px;
-	box-shadow: var(--shadow);
-	transition: transform .18s ease, border-color .2s ease, background .2s ease;
-	}
-	.card:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.16)}
-	.icon{inline-size:36px; block-size:36px; border-radius:10px; background: var(--grad);}
+    /* ============== SECTIONS ============== */
+    section{padding:72px 0;border-top:1px solid rgba(255,255,255,.06)}
+    .section-title{font-size:1.8rem;margin:0 0 12px}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:22px}
+    @media (min-width: 900px){ .grid-cols-3{grid-template-columns: repeat(3,1fr)} .grid-cols-2{grid-template-columns: repeat(2,1fr)} }
 
-	/* ============== PRICING (clickable cards) ============== */
-	#pricing .card {
-	cursor: pointer;
-	transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease;
-	}
-	#pricing .card:focus-visible { outline: none; box-shadow: var(--ring); }
+    .card{
+      background: linear-gradient(180deg, #111117, #0e0e14);
+      border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding:22px;
+      box-shadow: var(--shadow);
+      transition: transform .18s ease, border-color .2s ease, background .2s ease;
+    }
+    .card:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.16)}
+    .icon{inline-size:36px; block-size:36px; border-radius:10px; background: var(--grad);}
 
-	#pricing .card.selected {
-	border-color: rgba(124,58,237,.55);
-	/* was 2px inset — reduce to 1px so it doesn't visually clash with the button */
-	box-shadow: 0 0 0 1px rgba(124,58,237,.25) inset, var(--shadow);
-	transform: translateY(-2px);
-	}
+    /* ============== PRICING (clickable cards) ============== */
+    #pricing .card {
+      cursor: pointer;
+      transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease;
+    }
+    #pricing .card:focus-visible { outline: none; box-shadow: var(--ring); }
+    #pricing .card.selected {
+      border-color: rgba(124,58,237,.55);
+      box-shadow: 0 0 0 1px rgba(124,58,237,.25) inset, var(--shadow);
+      transform: translateY(-2px);
+    }
+    #pricing .card .ghost,
+    #pricing .card .cta {
+      transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+    }
+    #pricing .card.selected .ghost,
+    #pricing .card.selected .cta {
+      border: 0 !important; outline:0;
+      background: var(--grad); color: var(--hi);
+      box-shadow: 0 12px 36px rgba(124,58,237,.45);
+      background-clip: padding-box;
+    }
+    #pricing .ghost {
+      border: 0 !important;
+      background: rgba(255,255,255,.06);
+      background-clip: padding-box;
+    }
+    #pricing .ghost:hover { background: rgba(255,255,255,.10); transform: translateY(-2px); }
+    #pricing a.ghost:focus { outline: none; }
+    #pricing a.ghost:focus-visible { box-shadow: var(--ring), 0 12px 36px rgba(124,58,237,.45); }
 
-	/* Turn pricing buttons colored when selected */
-	#pricing .card .ghost,
-	#pricing .card .cta {
-	transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
-	}
-	#pricing .card.selected .ghost,
-	#pricing .card.selected .cta {
-	/* ensure no inner stroke shows on gradient */
-	border: 0 !important;
-	outline: 0;
-	background: var(--grad);
-	color: var(--hi);
-	box-shadow: 0 12px 36px rgba(124,58,237,.45);
-	background-clip: padding-box;
-	}
+    /* ============== PRICING (layout) ============== */
+    .pricing{display:grid; gap:22px}
+    @media (min-width: 900px){ .pricing{grid-template-columns: 1fr 1fr 1fr} }
+    .price{font-size:2.2rem;margin:8px 0}
+    .list{display:grid;gap:10px;margin:14px 0 0}
+    .list li{display:flex;gap:10px;align-items:flex-start}
+    .tick{inline-size:18px; block-size:18px; border-radius:4px; background: var(--brand-3)}
 
-	/* In pricing, hide ghost's thin border by default so it matches hero vibe */
-	#pricing .ghost {
-	/* was border-color: transparent; → remove border entirely */
-	border: 0 !important;
-	background: rgba(255,255,255,.06);
-	background-clip: padding-box;
-	}
-	#pricing .ghost:hover {
-	background: rgba(255,255,255,.10);
-	transform: translateY(-2px);
-	}
+    /* ============== FAQ ============== */
+    .faq-item{border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
+    .faq-q{
+      color: var(--text);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      width: 100%; padding: 16px 18px; border: 0; background: #111118; text-align: left; cursor: pointer;
+    }
+    .faq-a{display:none;padding:0 18px 16px;background:#0e0e14;border-top:1px solid rgba(255,255,255,.06)}
+    .faq-item.open .faq-a{display:block}
+    .faq-item svg { flex-shrink: 0; opacity: .85; }
+    .faq-item:hover .faq-q { background: #13131b; }
 
-	/* Optional: consistent focus ring on pricing anchors */
-	#pricing a.ghost:focus { outline: none; }
-	#pricing a.ghost:focus-visible { box-shadow: var(--ring), 0 12px 36px rgba(124,58,237,.45); }
+    /* Ensure form controls inherit text color */
+    button, input, textarea, select { color: inherit; }
 
-	/* ============== PRICING (layout) ============== */
-	.pricing{display:grid; gap:22px}
-	@media (min-width: 900px){ .pricing{grid-template-columns: 1fr 1fr 1fr} }
-	.price{font-size:2.2rem;margin:8px 0}
-	.list{display:grid;gap:10px;margin:14px 0 0}
-	.list li{display:flex;gap:10px;align-items:flex-start}
-	.tick{inline-size:18px; block-size:18px; border-radius:4px; background: var(--brand-3)}
+    /* ============== FOOTER ============== */
+    footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted);font-size:.95rem}
 
-	/* ============== FAQ ============== */
-	.faq-item{border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
-	.faq-q{
-	color: var(--text);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	width: 100%;
-	padding: 16px 18px;
-	border: 0;
-	background: #111118;
-	text-align: left;
-	cursor: pointer;
-	}
-	.faq-a{display:none;padding:0 18px 16px;background:#0e0e14;border-top:1px solid rgba(255,255,255,.06)}
-	.faq-item.open .faq-a{display:block}
-	.faq-item svg { flex-shrink: 0; opacity: .85; }
-	.faq-item:hover .faq-q { background: #13131b; }
+    /* ============== UTIL ============== */
+    .fade-up{opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease}
+    .fade-up.in{opacity:1; transform: translateY(0)}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
 
-	/* Ensure form controls inherit text color */
-	button, input, textarea, select { color: inherit; }
-
-	/* ============== FOOTER ============== */
-	footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted);font-size:.95rem}
-
-	/* ============== UTIL ============== */
-	.fade-up{opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease}
-	.fade-up.in{opacity:1; transform: translateY(0)}
-	.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
-
+    /* Mobile nav behavior (iPhone widths) */
+    @media (max-width: 900px){
+      .links{ display:none; }
+      .menu-btn{ display:inline-flex; }
+      header .cta{ display:none; }
+      .brand .wordmark{ font-size:1.05rem; }
+      .nav{ padding:12px 0; }
+    }
   </style>
 </head>
+
+
 <body>
   <!-- ============== NAV ============== -->
   <header>
