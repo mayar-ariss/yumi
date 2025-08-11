@@ -127,6 +127,34 @@
     .card:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.16)}
     .icon{inline-size:36px; block-size:36px; border-radius:10px; background: var(--grad);}
 
+	/* Clickable pricing cards */
+	#pricing .card { cursor: pointer; transition: box-shadow .2s ease, border-color .2s ease, transform .15s ease; }
+	#pricing .card:focus-visible { outline: none; box-shadow: var(--ring); }
+
+	/* Selected look for the whole card */
+	#pricing .card.selected {
+	border-color: rgba(124,58,237,.55);
+	box-shadow: 0 0 0 2px rgba(124,58,237,.35) inset, var(--shadow);
+	transform: translateY(-2px);
+	}
+
+	/* Turn the card's button colored when selected */
+	#pricing .card .ghost,
+	#pricing .card .cta {
+	transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+	}
+	#pricing .card.selected .ghost {
+	background: var(--grad);
+	color: var(--hi);
+	border-color: transparent;
+	box-shadow: 0 10px 30px rgba(124,58,237,.35);
+	}
+	#pricing .card.selected .cta {
+	filter: brightness(1.15);
+	box-shadow: 0 12px 36px rgba(124,58,237,.45);
+	}
+
+
     /* ============== PRICING ============== */
     .pricing{display:grid; gap:22px}
     @media (min-width: 900px){ .pricing{grid-template-columns: 1fr 1fr 1fr} }
@@ -302,7 +330,7 @@
     <section id="pricing">
       <div class="container">
         <h2 class="section-title fade-up">Simple, sane pricing</h2>
-        <p class="muted fade-up" style="max-width:62ch">Start free. Upgrade when you want longer windows and streak insights.</p>
+        <p class="muted fade-up" style="max-width:62ch">Start free. Upgrade when you want longer windows and more insights.</p>
         <div class="pricing" style="margin-top:22px">
           <div class="card fade-up">
             <h3>Free</h3>
@@ -470,6 +498,46 @@
         }
       });
     });
+
+ // Pricing selection (click or keyboard)
+  const pricingGroup = document.querySelector('#pricing .pricing');
+  const pricingCards = document.querySelectorAll('#pricing .card');
+
+  if (pricingGroup && pricingCards.length) {
+    pricingGroup.setAttribute('role', 'radiogroup');
+
+    const selectPlan = (card) => {
+      pricingCards.forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-checked', 'false');
+      });
+      card.classList.add('selected');
+      card.setAttribute('aria-checked', 'true');
+    };
+
+    pricingCards.forEach(card => {
+      card.setAttribute('role', 'radio');
+      card.setAttribute('aria-checked', 'false');
+      card.tabIndex = 0;
+
+      card.addEventListener('click', (e) => {
+        // If the user clicked a link inside, still mark selected
+        selectPlan(card);
+      });
+
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectPlan(card);
+        }
+      });
+    });
+
+    // Default selection (e.g., Plus)
+    const defaultCard = document.querySelector('#pricing .card:nth-child(2)') || pricingCards[0];
+    if (defaultCard) selectPlan(defaultCard);
+  }
+  
   </script>
 </body>
 </html>
