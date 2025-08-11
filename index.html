@@ -141,6 +141,28 @@
     .faq-a{display:none;padding:0 18px 16px;background:#0e0e14;border-top:1px solid rgba(255,255,255,.06)}
     .faq-item.open .faq-a{display:block}
 
+
+	/* Ensure form controls inherit text color */
+	button, input, textarea, select { color: inherit; }
+
+	/* FAQ buttons: visible, full‑width, and aligned */
+	.faq-q{
+	color: var(--text);              /* <- makes the question text visible */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	width: 100%;
+	padding: 16px 18px;
+	border: 0;
+	background: #111118;
+	text-align: left;
+	}
+
+	.faq-item svg { flex-shrink: 0; opacity: .85; }
+	.faq-item:hover .faq-q { background: #13131b; }
+
+
     /* ============== FOOTER ============== */
     footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.06);color:var(--muted);font-size:.95rem}
 
@@ -246,12 +268,12 @@
           <div class="card fade-up">
             <div class="icon" aria-hidden="true"></div>
             <h3>Tap • Hold • Send</h3>
-            <p class="muted">One gesture to send a thought. Choose a return window (0–12h) for a playful match.</p>
+            <p class="muted">One gesture to send a thought. Choose a return window up to 12h for a playful match.</p>
           </div>
           <div class="card fade-up" style="transition-delay:.06s">
             <div class="icon" aria-hidden="true"></div>
             <h3>Streaks, rethought</h3>
-            <p class="muted">Daily streaks without spam. Miss a day? No shame—just start fresh.</p>
+            <p class="muted">Daily streaks without spam. Miss a day? No shame. Just start fresh.</p>
           </div>
           <div class="card fade-up" style="transition-delay:.12s">
             <div class="icon" aria-hidden="true"></div>
@@ -270,7 +292,7 @@
           <p class="muted">Early beta user</p>
         </div>
         <div class="card fade-up" style="transition-delay:.06s">
-          <h3>“Feels like a nudge of presence—perfect for busy days.”</h3>
+          <h3>“Feels like a nudge of presence - perfect for busy days.”</h3>
           <p class="muted">Designer, London</p>
         </div>
       </div>
@@ -280,15 +302,14 @@
     <section id="pricing">
       <div class="container">
         <h2 class="section-title fade-up">Simple, sane pricing</h2>
-        <p class="muted fade-up" style="max-width:62ch">Start free. Upgrade when you want longer windows, advanced privacy, and streak insights.</p>
+        <p class="muted fade-up" style="max-width:62ch">Start free. Upgrade when you want longer windows and streak insights.</p>
         <div class="pricing" style="margin-top:22px">
           <div class="card fade-up">
             <h3>Free</h3>
             <p class="price">$0</p>
             <ul class="list">
-              <li><span class="tick"></span><span>Unlimited friends</span></li>
-              <li><span class="tick"></span><span>1h return window</span></li>
-              <li><span class="tick"></span><span>Private streaks</span></li>
+              <li><span class="tick"></span><span>4h return window</span></li>
+              <li><span class="tick"></span><span>Up to 10 sends/day</span></li>
             </ul>
             <a class="ghost" style="margin-top:16px;display:inline-flex" href="#download">Get started</a>
           </div>
@@ -296,21 +317,20 @@
             <h3>Plus</h3>
             <p class="price">$3.99<span style="font-size:1rem;color:var(--muted)">/mo</span></p>
             <ul class="list">
-              <li><span class="tick"></span><span>Windows up to 12h</span></li>
-              <li><span class="tick"></span><span>Priority notifications</span></li>
-              <li><span class="tick"></span><span>Backup & restore</span></li>
+              <li><span class="tick"></span><span>8h return window</span></li>
+              <li><span class="tick"></span><span>Unlimited sends</span></li>
             </ul>
             <a class="cta" style="margin-top:16px;display:inline-flex" href="#download">Try Plus</a>
           </div>
           <div class="card fade-up">
-            <h3>Family</h3>
+            <h3>Quiver</h3>
             <p class="price">$7.99<span style="font-size:1rem;color:var(--muted)">/mo</span></p>
             <ul class="list">
-              <li><span class="tick"></span><span>Up to 5 members</span></li>
-              <li><span class="tick"></span><span>Shared streaks</span></li>
-              <li><span class="tick"></span><span>Quiet hours</span></li>
+              <li><span class="tick"></span><span></span>Insights</li>
+              <li><span class="tick"></span><span></span>12h return window</li>
+              <li><span class="tick"></span><span>Unlimited sends</span></li>
             </ul>
-            <a class="ghost" style="margin-top:16px;display:inline-flex" href="#download">Choose Family</a>
+            <a class="ghost" style="margin-top:16px;display:inline-flex" href="#download">Choose Quiver</a>
           </div>
         </div>
       </div>
